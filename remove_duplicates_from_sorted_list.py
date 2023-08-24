@@ -41,3 +41,34 @@ class Solution:
                 current = current.next
 
         return head
+
+
+#WIth BETTER RUNTIME
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        current = head
+        if current is None:
+            return None
+
+        # Create a dummy node to mark the beginning of the list without duplicates.
+        sentinel = ListNode(0, current)
+        previous = sentinel
+
+        while current is not None:
+            if current.next is not None and current.val == current.next.val:
+                # Skip all consecutive duplicate nodes.
+                while current.next is not None and current.val == current.next.val:
+                    current = current.next
+            else:
+                # The current node is not a duplicate, so move it to the next node without duplicates.
+                previous.next = current
+                current = current.next
+                previous = previous.next
+
+        return sentinel.next

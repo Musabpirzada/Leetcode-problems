@@ -34,3 +34,30 @@ class Solution:
                     node1.next = new_node
                     node1 = new_node
                 return head
+
+
+#COde with MUch Less Runtime and Memory Useage.
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        prev, current = dummy, head
+
+        while current:
+            # Check if current node is a duplicate
+            if current.next and current.val == current.next.val:
+                # Skip all duplicate nodes
+                while current.next and current.val == current.next.val:
+                    current = current.next
+                prev.next = current.next
+            else:
+                prev = prev.next
+
+            current = current.next
+
+        return dummy.next
